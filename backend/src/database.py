@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
 from typing import Annotated
+
 SQLALCHEMY_DATABASE_URL = config("DATABASE_URL")
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
