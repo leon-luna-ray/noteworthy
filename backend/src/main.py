@@ -1,37 +1,26 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Annotated
 from pydantic import BaseModel
-from sqlalchemy.orm import Session
-
-from .database import engine, SessionLocal
+from decouple import config, Csv
 
 from . import models
-from . import schemas
+from .database import engine
+from .routes import notes_router, auth_router
+
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='', cast=Csv())
 
 app = FastAPI()
+
 models.Base.metadata.create_all(bind=engine)
 
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["http://localhost:5173"],
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=CORS_ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-@app.post("/notes/", response_model=schemas.Note)
-def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db)):
-    db_note = models.Notes(**note.dict())
-    db.add(db_note)
-    db.commit()
-    db.refresh(db_note)
-    return db_note
+app.include_router(notes_router, prefix="/notes")
+app.include_router(auth_router, prefix="/auth")
 
