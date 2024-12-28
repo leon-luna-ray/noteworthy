@@ -36,9 +36,10 @@ COPY backend/requirements.txt ./
 COPY backend/src/ ./src/
 
 RUN pip install -r requirements.txt
+# RUN mkdir -p /app/src/static
 
 # Copy the frontend build from the previous stage
-# COPY --from=frontend /app/dist ./src/static
+COPY --from=frontend /app/frontend/dist ./src/static
 
 EXPOSE 8080
 
