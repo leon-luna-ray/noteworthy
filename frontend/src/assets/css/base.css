@@ -1,0 +1,39 @@
+@tailwind base;
+
+@layer base {
+  body {
+    @apply dark:bg-gray-800 dark:text-gray-200 text-[1.125rem];
+  }
+
+  a { 
+    @apply hover:underline;
+  }
+
+  h1,
+  .h1 {
+    @apply text-[4rem] font-bold;
+  }
+
+  h2,
+  .h2 {
+    @apply text-[3rem] font-bold;
+  }
+
+  h3,
+  .h3 {
+    @apply text-[2rem] font-bold;
+  }
+
+  h4,
+  .h4 {
+    @apply text-[1rem] font-bold;
+  }
+
+  input, textarea {
+    @apply bg-transparent border-b border-black dark:border-gray-400 rounded-md p-2;
+  }
+
+  .label {
+    @apply text-[0.938rem] font-bold uppercase;
+  }
+}

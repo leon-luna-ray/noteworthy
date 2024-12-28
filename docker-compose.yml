@@ -10,13 +10,13 @@ services:
       - ./backend:/app
     command: uvicorn src.main:app --host 0.0.0.0 --port 8080 --reload
 
-  # frontend:
-  #   build: ./frontend
-  #   volumes:
-  #     - './frontend:/app'
-  #     - '/app/node_modules'
-  #   ports:
-  #     - 5173:5173
+  frontend:
+    build: ./frontend
+    volumes:
+      - './frontend:/app'
+      - '/app/node_modules'
+    ports:
+      - 5173:5173
 
   db:
     image: postgres

@@ -1,0 +1,7 @@
+@tailwind components;
+
+@layer components {
+    .btn {
+        @apply px-4 py-2 w-max text-center bg-transparent border-black dark:border-white border text-black dark:text-white rounded-md label hover:no-underline hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black;
+    }
+}
