@@ -4,7 +4,7 @@ from decouple import config
 
 from jose import JWTError, jwt
 from typing import Annotated
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from passlib.context import CryptContext
 
 from ..models import Users
@@ -28,7 +28,6 @@ async def create_user(db: db_dependency, create_user_request: CreateUserRequest)
     )
     db.add(create_user_model)
     db.commit()
-    # db.refresh(create_user_model)
 
 
 @router.post("/token", response_model=Token)
@@ -53,12 +52,14 @@ def authenticate_user(username: str, password: str, db):
         return False
     if not bcrypt_context.verify(password, user.password):
         return False
+    
     return user
 
 
 def create_access_token(email: str, user_id: int, expires_delta: timedelta):
     to_encode = {"sub": email, "user_id": user_id}
-    expires = datetime.utcnow() + expires_delta
+    expires = datetime.now(timezone.utc) + expires_delta
     to_encode.update({"exp": expires})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
     return encoded_jwt
