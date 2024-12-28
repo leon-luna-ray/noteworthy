@@ -1,3 +1,4 @@
+# Backend development Dockerfile
 FROM python:3.12-slim-bullseye
 
 RUN mkdir /app

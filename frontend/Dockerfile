@@ -1,3 +1,4 @@
+# Frontend development Dockerfile
 FROM node:lts-alpine
 
 WORKDIR /app

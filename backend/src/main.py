@@ -23,6 +23,6 @@ app.add_middleware(
 )
 
 app.include_router(notes_router, prefix="/notes")
-app.include_router(auth_router, prefix="/auth")
+app.include_router(auth_router, prefix="/auth", tags=["auth"])
 
 app.mount("/", StaticFiles(directory="src/static", html=True), name="static")

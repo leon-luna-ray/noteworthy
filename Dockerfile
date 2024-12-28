@@ -22,11 +22,9 @@ FROM python:3.12-slim-bullseye
 RUN mkdir /app
 WORKDIR /app
 
-# Set environment variables
 ENV PATH="${PATH}:/root/.local/bin"
 ENV PYTHONPATH=.
 
-# Install Python dependencies
 RUN pip install --upgrade pip
 
 COPY backend/requirements.txt ./
