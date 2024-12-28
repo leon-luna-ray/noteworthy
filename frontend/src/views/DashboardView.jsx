@@ -33,7 +33,6 @@ const DashboardPage = () => {
           <Routes>
             <Route path="/" element={
               <div>
-                <h1 className='h2'>Let's get cookin!</h1>
                 <p>Select a note or create a new one</p>
               </div>
             } />
