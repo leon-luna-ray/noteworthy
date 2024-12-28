@@ -11,8 +11,9 @@ from .routes import notes_router, auth_router
 ENV = config("ENV")
 CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="", cast=Csv())
 
-app = FastAPI(docs_url=None if ENV != "dev" else "/docs", redoc_url=None)
 
+
+app = FastAPI(docs_url=None if ENV != "dev" else "/docs", redoc_url=None if ENV != "dev" else "/redoc")
 
 app.add_middleware(
     CORSMiddleware,
