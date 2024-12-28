@@ -8,11 +8,11 @@ from . import models
 from .database import engine
 from .routes import notes_router, auth_router
 
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='', cast=Csv())
+ENV = config("ENV")
+CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="", cast=Csv())
 
-app = FastAPI()
+app = FastAPI(docs_url=None if ENV != "dev" else "/docs", redoc_url=None)
 
-models.Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,7 +22,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(notes_router, prefix="/notes")
-app.include_router(auth_router, prefix="/auth", tags=["auth"])
+app.include_router(notes_router, prefix="/api/v1/notes")
+app.include_router(auth_router, prefix="/api/v1/auth", tags=["auth"])
 
 app.mount("/", StaticFiles(directory="src/static", html=True), name="static")
+
+models.Base.metadata.create_all(bind=engine)
