@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import Depends
 from decouple import config
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session

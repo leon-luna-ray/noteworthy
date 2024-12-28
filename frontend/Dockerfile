@@ -1,3 +1,4 @@
+# Frontend development Dockerfile
 FROM node:lts-alpine
 
 WORKDIR /app
@@ -11,4 +12,6 @@ COPY pnpm-lock.yaml .
 
 RUN pnpm install
 
-CMD ["pnpm", "run", "dev"]
+EXPOSE 5173
+
+CMD ["pnpm", "run", "dev", "--host"]
