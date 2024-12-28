@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from decouple import config, Csv
 
@@ -23,3 +24,5 @@ app.add_middleware(
 
 app.include_router(notes_router, prefix="/notes")
 app.include_router(auth_router, prefix="/auth")
+
+app.mount("/", StaticFiles(directory="src/static/dist", html=True), name="static")
