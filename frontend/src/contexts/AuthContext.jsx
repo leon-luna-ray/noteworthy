@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
-      
+
       if (response.status === 200) {
         const { access_token } = response.data;
         setSession(access_token);
@@ -73,6 +73,7 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.get('/auth/whoami');
       if (response.status === 200) {
         setUser(response.data);
+        navigate('/dashboard');
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.detail) {
