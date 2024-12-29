@@ -30,7 +30,7 @@ export const NoteProvider = ({ children }) => {
     // Read
     const fetchNotes = async () => {
         try {
-            const response = await axios.get('/notes/');
+            const response = await axios.get('/notes');
             setNotes(response.data);
         } catch (error) {
             console.error('Error fetching notes:', error);

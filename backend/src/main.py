@@ -12,8 +12,9 @@ CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="", cast=Csv())
 
 docs_url = None if ENV != "dev" else "/docs"
 redoc_url = None if ENV != "dev" else "/redoc"
-
-app = FastAPI(docs_url=docs_url, redoc_url=redoc_url)
+print(f"🍒 ENV: {ENV}")
+print(docs_url, redoc_url)
+app = FastAPI(docs_url='/docs', redoc_url=redoc_url)
 
 app.add_middleware(
     CORSMiddleware,
@@ -23,7 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(notes_router, prefix="/api/v1/notes")
+app.include_router(notes_router, prefix="/api/v1/notes", tags=["notes"])
 app.include_router(auth_router, prefix="/api/v1/auth", tags=["auth"])
 
 app.mount("/", StaticFiles(directory="src/static", html=True), name="static")

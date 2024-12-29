@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List, Annotated
 from .. import models, schemas
@@ -8,18 +8,21 @@ router = APIRouter()
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-@router.post("/", response_model=schemas.Note)
+# /api/v1/notes
+@router.get("/", status_code=status.HTTP_200_OK)
+def read_notes(db: db_dependency):
+    print('🍒 read notes')
+    # notes = db.query(models.Notes).offset(skip).limit(limit).all()
+    return '🍒'
+
+# /api/v1/notes/new
+@router.post("/new", response_model=schemas.Note)
 def create_note(note: schemas.NoteCreate, db: db_dependency):
     db_note = models.Notes(**note.dict())
     db.add(db_note)
     db.commit()
     db.refresh(db_note)
     return db_note
-
-@router.get("/", response_model=List[schemas.Note])
-def read_notes(db: db_dependency):
-    notes = db.query(models.Notes).offset(skip).limit(limit).all()
-    return notes
 
 @router.get("/{note_id}", response_model=schemas.Note)
 def read_note(note_id: int, db: db_dependency):
