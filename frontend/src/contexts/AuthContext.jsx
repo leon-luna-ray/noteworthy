@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   const logOut = async () => {
     const response = await axios.post('/auth/logout/');
 
-    if(response.status === 200) {
+    if (response.status === 200) {
       setSession(null);
       setUser(null);
       navigate('/login');
@@ -52,37 +52,21 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signUp = async (email, password) => {
-    const userData = {
-      email,
-      password,
-    };
-    const response = await fetch('http://localhost:8080/api/v1/auth/register', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-  });
-  if(response.status === 201) {
-    const data = await response.json();
-    console.log('response:', data);
-  }
-  if (!response.ok) {
-      throw new Error('Failed to register user');
-  }
-
-  // return response.json();
-    // try {
-    //   const response = await axios.post('/auth/register/', { email, password });
-    //   console.log('response:', response);
-    //   // if (response.data.user.id) {
-    //   //   alert('Sign up successful. Please log in');
-    //   //   logOut();
-    //   //   navigate('/login');
-    //   // }
-    // } catch (error) {
-    //   alert(`Error - ${error.response.data?.email[0]}` || 'An error occurred. Unable to sign up');
-    // }
+    try {
+      const userData = { email, password };
+      const response = await axios.post('/auth/register', userData);
+      if (response.status === 201) {
+        alert('Sign up successful. Please log in');
+        logOut();
+        navigate('/login');
+      }
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.detail) {
+        alert(`Error - ${error.response.data.detail}`);
+      } else {
+        alert('An error occurred. Unable to sign up');
+      }
+    }
   };
 
   const fetchUserData = async (token) => {
