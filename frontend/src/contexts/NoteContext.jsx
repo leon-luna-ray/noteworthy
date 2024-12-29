@@ -72,9 +72,9 @@ export const NoteProvider = ({ children }) => {
     };
 
     // Effects
-    useEffect(() => {
-        fetchNotes();
-    }, []);
+    // useEffect(() => {
+    //     fetchNotes();
+    // }, []);
 
     return (
         <NoteContext.Provider value={{
