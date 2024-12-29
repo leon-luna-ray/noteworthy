@@ -83,32 +83,37 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.get('/auth/whoami');
       console.log('response:', response);
       if (response.status === 200) {
-        // setSession(token);
         setUser(response.data);
       }
 
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      if (error.response && error.response.data && error.response.data.detail) {
+        alert(`Error - ${error.response.data.detail}`);
+      }
+      else {
+        alert('An error occurred. Unable to fetch user data');
+      }
       setSession(null);
     }
   };
 
   // Effects
   useEffect(() => {
-    if (token) {
-      fetchUserData(token);
-    }
-  }, [token]);
-
-  useEffect(() => {
+    console.log('First useEffect - component mounted');
     const storedToken = sessionStorage.getItem('token');
     if (storedToken && storedToken !== 'null') {
-      fetchUserData(storedToken);
-    }
-    else {
+      setToken(storedToken);
+    } else {
       setSession(null);
     }
   }, []);
+  
+  useEffect(() => {
+    if (token) {
+      console.log('Second useEffect - token changed:', token);
+      fetchUserData();
+    }
+  }, [token]);
 
   const authContextValue = {
     logIn,
