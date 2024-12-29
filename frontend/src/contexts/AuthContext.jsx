@@ -21,23 +21,32 @@ export const AuthProvider = ({ children }) => {
 
   const logIn = async (email, password) => {
     try {
-      const response = await axios.post('/auth/token/', { email, password });
+      const userData = new URLSearchParams();
+      userData.append('username', email);
+      userData.append('password', password);
 
-      if (response.status !== 200) {
-        alert('Invalid email or password');
-        return;
-      }
+      const response = await axios.post('/auth/token', userData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      console.log('response:', response);
 
-      const { token, user } = response.data;
+      if (response.status === 200) {
+        const { access_token } = response.data;
+        setSession(access_token);
 
-      setSession(token);
-
-      if (user.id) {
-        setUser(user);
-        navigate('/dashboard');
+        // if (user.id) {
+        //   setUser(user);
+        //   navigate('/dashboard');
+        // }
       }
     } catch (error) {
-      console.error('Error logging in:', error);
+      if (error.response && error.response.data && error.response.data.detail) {
+        alert(`Error - ${error.response.data.detail}`);
+      } else {
+        alert('An error occurred. Unable to log in');
+      }
     }
   };
 
@@ -69,12 +78,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const fetchUserData = async (token) => {
+  const fetchUserData = async () => {
     try {
       const response = await axios.get('/auth/whoami/');
-
+      console.log('response:', response);
       if (response.status === 200) {
-        setSession(token);
+        // setSession(token);
         setUser(response.data);
       }
 
@@ -85,6 +94,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Effects
+  useEffect(() => {
+    if (token) {
+      fetchUserData(token);
+    }
+  }, [token]);
+
   useEffect(() => {
     const storedToken = sessionStorage.getItem('token');
     if (storedToken && storedToken !== 'null') {
