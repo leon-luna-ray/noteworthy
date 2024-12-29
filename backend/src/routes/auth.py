@@ -11,10 +11,10 @@ from ..models import Users
 from ..schemas import CreateUserRequest, Token
 from ..database import db_dependency
 
-router = APIRouter()
-
 SECRET_KEY = config("SECRET_KEY")
 ALGORITHM = config("ALGORITHM")
+
+router = APIRouter()
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl="api/v1/auth/token")
@@ -99,4 +99,5 @@ async def whoami(current_user: Annotated[dict, Depends(get_current_user)]):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials",
         )
+    
     return current_user
