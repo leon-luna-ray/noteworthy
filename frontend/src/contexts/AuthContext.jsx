@@ -20,26 +20,20 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logIn = async (email, password) => {
-    try {
-      const userData = new URLSearchParams();
-      userData.append('username', email);
-      userData.append('password', password);
+    const userData = new URLSearchParams();
+    userData.append('username', email);
+    userData.append('password', password);
 
+    try {
       const response = await axios.post('/auth/token', userData, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
-      console.log('response:', response);
-
+      
       if (response.status === 200) {
         const { access_token } = response.data;
         setSession(access_token);
-
-        // if (user.id) {
-        //   setUser(user);
-        //   navigate('/dashboard');
-        // }
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.detail) {
@@ -50,14 +44,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logOut = async () => {
-    const response = await axios.post('/auth/logout/');
-
-    if (response.status === 200) {
-      setSession(null);
-      setUser(null);
-      navigate('/login');
-    }
+  const logOut = () => {
+    setSession(null);
+    setUser(null);
+    navigate('/login');
   };
 
   const signUp = async (email, password) => {
@@ -81,11 +71,9 @@ export const AuthProvider = ({ children }) => {
   const fetchUserData = async () => {
     try {
       const response = await axios.get('/auth/whoami');
-      console.log('response:', response);
       if (response.status === 200) {
         setUser(response.data);
       }
-
     } catch (error) {
       if (error.response && error.response.data && error.response.data.detail) {
         alert(`Error - ${error.response.data.detail}`);
@@ -99,7 +87,6 @@ export const AuthProvider = ({ children }) => {
 
   // Effects
   useEffect(() => {
-    console.log('First useEffect - component mounted');
     const storedToken = sessionStorage.getItem('token');
     if (storedToken && storedToken !== 'null') {
       setToken(storedToken);
@@ -110,7 +97,6 @@ export const AuthProvider = ({ children }) => {
   
   useEffect(() => {
     if (token) {
-      console.log('Second useEffect - token changed:', token);
       fetchUserData();
     }
   }, [token]);

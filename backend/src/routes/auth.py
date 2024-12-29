@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, timezone
 from passlib.context import CryptContext
 
 from ..models import Users
-from ..schemas import CreateUserRequest, Token
+from ..schemas import CreateUserRequest
 from ..database import db_dependency
 
 SECRET_KEY = config("SECRET_KEY")
@@ -101,6 +101,3 @@ async def whoami(current_user: Annotated[dict, Depends(get_current_user)]):
         )
     
     return current_user
-
-
-# /api/v1/auth/logout
