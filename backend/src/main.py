@@ -1,7 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
 from decouple import config, Csv
 
 from . import models
@@ -11,9 +10,10 @@ from .routes import notes_router, auth_router
 ENV = config("ENV")
 CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="", cast=Csv())
 
+docs_url = None if ENV != "dev" else "/docs"
+redoc_url = None if ENV != "dev" else "/redoc"
 
-
-app = FastAPI(docs_url=None if ENV != "dev" else "/docs", redoc_url=None if ENV != "dev" else "/redoc")
+app = FastAPI(docs_url=docs_url, redoc_url=redoc_url)
 
 app.add_middleware(
     CORSMiddleware,
