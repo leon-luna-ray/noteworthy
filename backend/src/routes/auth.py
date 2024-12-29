@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, timezone
 from passlib.context import CryptContext
 
 from ..models import Users
-from ..schemas import CreateUserRequest, Token
+from ..schemas import CreateUserRequest
 from ..database import db_dependency
 
 SECRET_KEY = config("SECRET_KEY")
@@ -38,7 +38,7 @@ async def create_user(db: db_dependency, create_user_request: CreateUserRequest)
     db.commit()
 
 # /api/v1/auth/token
-@router.post("/token", response_model=Token)
+@router.post("/token", status_code=status.HTTP_200_OK)
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: db_dependency
 ):

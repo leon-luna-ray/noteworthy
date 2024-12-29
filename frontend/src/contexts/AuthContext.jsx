@@ -20,62 +20,68 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logIn = async (email, password) => {
+    const userData = new URLSearchParams();
+    userData.append('username', email);
+    userData.append('password', password);
+
     try {
-      const response = await axios.post('/users/login/', { email, password });
+      const response = await axios.post('/auth/token', userData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
 
-      if (response.status !== 200) {
-        alert('Invalid email or password');
-        return;
-      }
-
-      const { token, user } = response.data;
-
-      setSession(token);
-
-      if (user.id) {
-        setUser(user);
-        navigate('/dashboard');
+      if (response.status === 200) {
+        const { access_token } = response.data;
+        setSession(access_token);
       }
     } catch (error) {
-      console.error('Error logging in:', error);
+      if (error.response && error.response.data && error.response.data.detail) {
+        alert(`Error - ${error.response.data.detail}`);
+      } else {
+        alert('An error occurred. Unable to log in');
+      }
     }
   };
 
-  const logOut = async () => {
-    const response = await axios.post('/users/logout/');
-
-    if(response.status === 200) {
-      setSession(null);
-      setUser(null);
-      navigate('/login');
-    }
+  const logOut = () => {
+    setSession(null);
+    setUser(null);
+    navigate('/login');
   };
 
   const signUp = async (email, password) => {
     try {
-      const response = await axios.post('/users/signup/', { email, password });
-
-      if (response.data.user.id) {
+      const userData = { email, password };
+      const response = await axios.post('/auth/register', userData);
+      if (response.status === 201) {
         alert('Sign up successful. Please log in');
         logOut();
         navigate('/login');
       }
     } catch (error) {
-      alert(`Error - ${error.response.data?.email[0]}` || 'An error occurred. Unable to sign up');
+      if (error.response && error.response.data && error.response.data.detail) {
+        alert(`Error - ${error.response.data.detail}`);
+      } else {
+        alert('An error occurred. Unable to sign up');
+      }
     }
   };
 
-  const fetchUserData = async (token) => {
+  const fetchUserData = async () => {
     try {
-      const response = await axios.get('/users/whoami/');
-
+      const response = await axios.get('/auth/whoami');
       if (response.status === 200) {
-        setSession(token);
         setUser(response.data);
+        navigate('/dashboard');
       }
-
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      if (error.response && error.response.data && error.response.data.detail) {
+        alert(`Error - ${error.response.data.detail}`);
+      }
+      else {
+        alert('An error occurred. Unable to fetch user data');
+      }
       setSession(null);
     }
   };
@@ -84,12 +90,17 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedToken = sessionStorage.getItem('token');
     if (storedToken && storedToken !== 'null') {
-      fetchUserData(storedToken);
-    }
-    else {
+      setToken(storedToken);
+    } else {
       setSession(null);
     }
   }, []);
+  
+  useEffect(() => {
+    if (token) {
+      fetchUserData();
+    }
+  }, [token]);
 
   const authContextValue = {
     logIn,
