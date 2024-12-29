@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.get('/auth/whoami');
       if (response.status === 200) {
         setUser(response.data);
-        navigate('/dashboard');
+        navigate('/');
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.detail) {

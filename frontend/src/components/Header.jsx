@@ -9,14 +9,14 @@ const Header = () => {
     return (
         <header className='py-[2rem] flex items-center'>
             <div className="container flex justify-between items-center">
-                <Link to="/">
+                <Link to="/home">
                     <h1 className='text-2xl'>Noteworthy</h1>
                 </Link>
                 <div className="flex items-center gap-x-[2rem]">
-                    {isLoggedIn && <Link className="btn" to='/dashboard/notes/new'>New</Link>}
+                    {isLoggedIn && <Link className="btn" to='/notes/new'>New</Link>}
                     {isLoggedIn && <p>{user.email}</p>}
                     <nav className="flex gap-[1rem] items-center">
-                        {isLoggedIn && <Link to="/dashboard">Dashboard</Link>}
+                        {isLoggedIn && <Link to="/">Dashboard</Link>}
                         {isLoggedIn ? <button onClick={logOut}>Log out</button> : <Link to="/login">Login</Link>}
                     </nav>
                 </div>

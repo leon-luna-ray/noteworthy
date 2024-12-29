@@ -12,6 +12,7 @@ import HomeView from '@/views/HomeView';
 import DashboardView from '@/views/DashboardView';
 import LoginView from '@/views/LoginView';
 import SignupView from '@/views/SignupView';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 const App = () => {
   return (
@@ -21,11 +22,13 @@ const App = () => {
           <Header />
           <main>
             <Routes>
-              <Route path="/" element={<HomeView />} />
-              <Route path="dashboard/*" element={
-                <NoteProvider>
-                  <DashboardView />
-                </NoteProvider>
+              <Route path="/home" element={<HomeView />} />
+              <Route path="/" element={
+                <ProtectedRoute>
+                  <NoteProvider>
+                    <DashboardView />
+                  </NoteProvider>
+                </ProtectedRoute>
               } />
               <Route path="login" element={<LoginView />} />
               <Route path="signup" element={<SignupView />} />
