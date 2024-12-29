@@ -101,3 +101,6 @@ async def whoami(current_user: Annotated[dict, Depends(get_current_user)]):
         )
     
     return current_user
+
+
+# /api/v1/auth/logout
