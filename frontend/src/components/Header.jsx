@@ -9,7 +9,7 @@ const Header = () => {
     return (
         <header className='py-[2rem] flex items-center'>
             <div className="container flex justify-between items-center">
-                <Link to="/home">
+                <Link to="/welcome">
                     <h1 className='text-2xl'>Noteworthy</h1>
                 </Link>
                 <div className="flex items-center gap-x-[2rem]">

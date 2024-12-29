@@ -22,7 +22,7 @@ const App = () => {
           <Header />
           <main>
             <Routes>
-              <Route path="/home" element={<HomeView />} />
+              <Route path="/welcome" element={<HomeView />} />
               <Route path="/" element={
                 <ProtectedRoute>
                   <NoteProvider>
