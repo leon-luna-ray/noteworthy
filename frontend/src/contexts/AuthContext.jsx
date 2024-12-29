@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get('/auth/whoami/');
+      const response = await axios.get('/auth/whoami');
       console.log('response:', response);
       if (response.status === 200) {
         // setSession(token);
