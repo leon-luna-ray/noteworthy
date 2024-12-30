@@ -35,11 +35,9 @@ const NoteDetail = () => {
                 <h2>{noteData?.title}</h2>
                 <div className="flex-col-2">
                     <div className="flex-col-05">
-                        <span className="label">Title</span>
-                        <p>{noteData?.title}</p>
+                        <h1 className='h4'>{noteData?.title}</h1>
                     </div>
                     <div className="flex-col-05">
-                        <span className="label">Instructions</span>
                         <p>{noteData?.body}</p>
                     </div>
                 </div>

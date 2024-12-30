@@ -16,6 +16,13 @@ def get_notes(db: db_dependency, current_user: Annotated[dict, Depends(get_curre
     notes = db.query(models.Notes).filter(models.Notes.user_id == current_user['user_id']).all()
     return notes
 
+# /api/v1/notes/{note_id}
+@router.get("/{note_id}/", response_model=schemas.Note, status_code=status.HTTP_200_OK)
+def get_note(note_id: int, db: db_dependency, current_user: Annotated[dict, Depends(get_current_user)]):
+    note = db.query(models.Notes).filter(models.Notes.id == note_id, models.Notes.user_id == current_user['user_id']).first()
+    if note is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found")
+    return note
 
 # /api/v1/notes/new
 @router.post("/new/", response_model=schemas.Note, status_code=status.HTTP_201_CREATED)
