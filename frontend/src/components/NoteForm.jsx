@@ -48,7 +48,7 @@ const NoteForm = () => {
     
     return (
         <div className='flex-col-2 p-[1rem]'>
-            <Link to={id ? `/dashboard/notes/${id}` : '/dashboard'} className='flex items-center gap-x-[0.2rem] w-max'>
+            <Link to={id ? `/notes/${id}` : '/'} className='flex items-center gap-x-[0.2rem] w-max'>
                 <IconBack />
                 <span className='uppercase text-[14px]'>Back</span>
             </Link>

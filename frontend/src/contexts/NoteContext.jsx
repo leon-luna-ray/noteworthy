@@ -14,6 +14,17 @@ export const NoteProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     // Methods
+    const fetchNotes = async () => {
+        try {
+            const response = await axios.get('/notes/');
+            setNotes(response.data);
+        } catch (error) {
+            console.error('Error fetching notes:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     // Create
     const createNote = async (noteData) => {
         try {
@@ -32,17 +43,6 @@ export const NoteProvider = ({ children }) => {
     };
 
     // Read
-    const fetchNotes = async () => {
-        console.log('fetching notes');
-        try {
-            const response = await axios.get('/notes/');
-            setNotes(response.data);
-        } catch (error) {
-            console.error('Error fetching notes:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
     const fetchNote = async (id) => {
         try {
             const response = await axios.get(`/notes/${id}/`);
@@ -68,9 +68,9 @@ export const NoteProvider = ({ children }) => {
     // Delete
     const deleteNote = async (id) => {
         try {
-            await axios.delete(`/notes/delete/${id}/`);
+            await axios.delete(`/notes/${id}/`);
             fetchNotes();
-            navigate('/dashboard');
+            navigate('/');
         } catch (error) {
             console.error('Error deleting note:', error);
         }

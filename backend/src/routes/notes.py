@@ -48,3 +48,14 @@ def update_note(note_id: int, note: schemas.NoteUpdate, db: db_dependency, curre
     db.refresh(db_note)
     
     return db_note
+
+# /api/v1/notes/{note_id}/
+@router.delete("/{note_id}/", status_code=status.HTTP_204_NO_CONTENT)
+def delete_note(note_id: int, db: db_dependency, current_user: Annotated[dict, Depends(get_current_user)]):
+    db_note = db.query(models.Notes).filter(models.Notes.id == note_id, models.Notes.user_id == current_user['user_id']).first()
+    if db_note is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found")
+    
+    db.delete(db_note)
+    db.commit()
+    return
