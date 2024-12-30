@@ -6,8 +6,8 @@ class Notes(Base):
     __tablename__ = "notes"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True)
-    body = Column(Text)
-    created_at = Column(DateTime)
-    updated_at = Column(DateTime)
-    user_id = Column(Integer, ForeignKey("users.id"))
+    title = Column(String)
+    body = Column(String)
+    # created_at = Column(String)
+    # updated_at = Column(String)
+    # user_id = Column(Integer, ForeignKey("users.id"))

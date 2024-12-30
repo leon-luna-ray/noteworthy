@@ -14,37 +14,11 @@ def get_notes(db: db_dependency):
 
 
 # /api/v1/notes/new
-@router.post("/new", response_model=schemas.Note)
-def create_note(note: schemas.NoteCreate, db: db_dependency, current_user: models.Users = Depends(get_current_user)):
-    db_note = models.Notes(**note.dict(), user_id=current_user.id)
+@router.post("/new/", response_model=schemas.Note)
+def create_note(note: schemas.NoteCreate, db: db_dependency):
+    print("🍒 DO SOMETHING")
+    db_note = models.Notes(**note.dict())
     db.add(db_note)
     db.commit()
     db.refresh(db_note)
-    return db_note
-
-@router.get("/{note_id}", response_model=schemas.Note)
-def read_note(note_id: int, db: db_dependency):
-    note = db.query(models.Notes).filter(models.Notes.id == note_id).first()
-    if note is None:
-        raise HTTPException(status_code=404, detail="Note not found")
-    return note
-
-@router.put("/{note_id}", response_model=schemas.Note)
-def update_note(note_id: int, note: schemas.NoteCreate, db: db_dependency):
-    db_note = db.query(models.Notes).filter(models.Notes.id == note_id).first()
-    if db_note is None:
-        raise HTTPException(status_code=404, detail="Note not found")
-    for key, value in note.dict().items():
-        setattr(db_note, key, value)
-    db.commit()
-    db.refresh(db_note)
-    return db_note
-
-@router.delete("/{note_id}", response_model=schemas.Note)
-def delete_note(note_id: int, db: db_dependency):
-    db_note = db.query(models.Notes).filter(models.Notes.id == note_id).first()
-    if db_note is None:
-        raise HTTPException(status_code=404, detail="Note not found")
-    db.delete(db_note)
-    db.commit()
     return db_note

@@ -15,40 +15,22 @@ export const NoteProvider = ({ children }) => {
 
     // Methods
     // Create
-    // const createNote = async (noteData) => {
-    //     try {
-    //         const response = await axios.post('/notes/new/', noteData);
-    //         if (response.status === 201) {
-    //             fetchNotes();
-    //             navigate(`/dashboard/notes/${response.data.id}`);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error creating note:', error);
-    //     }
-    // };
     const createNote = async (noteData) => {
-        console.log(noteData)
         try {
-          const response = await axios.post('/notes/new', noteData, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-    
-          if (response.status === 200) {
-            const { access_token } = response.data;
-            setSession(access_token);
-          }
+            const response = await axios.post('/notes/new/', noteData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log('Note created:', response.data);
         } catch (error) {
-          if (error.response && error.response.data && error.response.data.detail) {
-            alert(`Error - ${error.response.data.detail}`);
-          } else {
-            alert('An error occurred. Unable to log in');
-          }
+            console.error('Error creating note:', error);
         }
-      };
+    };
+
     // Read
     const fetchNotes = async () => {
+        console.log('fetching notes');
         try {
             const response = await axios.get('/notes/');
             setNotes(response.data);
@@ -91,16 +73,12 @@ export const NoteProvider = ({ children }) => {
         }
     };
 
-    // Effects
-    useEffect(() => {
-        fetchNotes();
-    }, []);
-
     return (
         <NoteContext.Provider value={{
             notes,
             noteData,
             loading,
+            fetchNotes,
             fetchNote,
             createNote,
             updateNote,
