@@ -23,7 +23,7 @@ const App = () => {
           <main>
             <Routes>
               <Route path="/welcome" element={<HomeView />} />
-              <Route path="/" element={
+              <Route path="/*" element={
                 <ProtectedRoute>
                   <NoteProvider>
                     <DashboardView />
@@ -42,3 +42,4 @@ const App = () => {
 }
 
 export default App
+     

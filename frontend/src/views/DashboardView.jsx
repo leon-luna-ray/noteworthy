@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import { NoteContext } from '@/contexts/NoteContext';
 
@@ -6,7 +6,11 @@ import NoteForm from '@/components/NoteForm';
 import NoteDetail from '@/components/NoteDetail';
 
 const DashboardPage = () => {
-  const { notes } = useContext(NoteContext);
+  const { notes, fetchNotes } = useContext(NoteContext);
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
 
   return (
     <div className="container flex-col-2 justify-center items-center">
@@ -20,7 +24,7 @@ const DashboardPage = () => {
               ) : (
                 notes.map((note, index) => (
                   <li key={note.id}>
-                    <Link to={`/dashboard/notes/${note.id}`}>
+                    <Link to={`/notes/${note.id}`}>
                       <span>{note.title}</span>
                     </Link>
                   </li>

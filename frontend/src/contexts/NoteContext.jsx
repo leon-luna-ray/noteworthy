@@ -14,20 +14,6 @@ export const NoteProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     // Methods
-    // Create
-    const createNote = async (noteData) => {
-        try {
-            const response = await axios.post('/notes/new/', noteData);
-            if (response.status === 201) {
-                fetchNotes();
-                navigate(`/dashboard/notes/${response.data.id}`);
-            }
-        } catch (error) {
-            console.error('Error creating note:', error);
-        }
-    };
-
-    // Read
     const fetchNotes = async () => {
         try {
             const response = await axios.get('/notes/');
@@ -38,6 +24,25 @@ export const NoteProvider = ({ children }) => {
             setLoading(false);
         }
     };
+
+    // Create
+    const createNote = async (noteData) => {
+        try {
+            const response = await axios.post('/notes/new/', noteData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.status === 201) {
+                fetchNotes();
+                navigate(`/notes/${response.data.id}`);
+            }
+        } catch (error) {
+            console.error('Error creating note:', error);
+        }
+    };
+
+    // Read
     const fetchNote = async (id) => {
         try {
             const response = await axios.get(`/notes/${id}/`);
@@ -50,10 +55,10 @@ export const NoteProvider = ({ children }) => {
     // Update
     const updateNote = async (id, noteData) => {
         try {
-            const response = await axios.put(`/notes/edit/${id}/`, noteData);
+            const response = await axios.put(`/notes/${id}/`, noteData);
             if (response.status === 200) {
                 fetchNotes();
-                navigate(`/dashboard/notes/${id}`);
+                navigate(`/notes/${response.data.id}`);
             }
         } catch (error) {
             console.error('Error updating note:', error);
@@ -63,24 +68,20 @@ export const NoteProvider = ({ children }) => {
     // Delete
     const deleteNote = async (id) => {
         try {
-            await axios.delete(`/notes/delete/${id}/`);
+            await axios.delete(`/notes/${id}/`);
             fetchNotes();
-            navigate('/dashboard');
+            navigate('/');
         } catch (error) {
             console.error('Error deleting note:', error);
         }
     };
-
-    // Effects
-    useEffect(() => {
-        fetchNotes();
-    }, []);
 
     return (
         <NoteContext.Provider value={{
             notes,
             noteData,
             loading,
+            fetchNotes,
             fetchNote,
             createNote,
             updateNote,
