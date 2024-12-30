@@ -13,11 +13,12 @@ router = APIRouter()
 # /api/v1/notes
 @router.get("/", status_code=status.HTTP_200_OK)
 def get_notes(db: db_dependency):
-    print("🍒 get_notes")
+    notes = db.query(models.Notes).all()
+    return notes
 
 
 # /api/v1/notes/new
-@router.post("/new/", response_model=schemas.Note)
+@router.post("/new/", response_model=schemas.Note, status_code=status.HTTP_201_CREATED)
 def create_note(note: schemas.NoteCreate, db: db_dependency, current_user: Annotated[dict, Depends(get_current_user)]):
     db_note = models.Notes(**note.dict(), user_id=current_user['user_id'], created_at=datetime.now(), updated_at=datetime.now())
     db.add(db_note)

@@ -22,7 +22,10 @@ export const NoteProvider = ({ children }) => {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log('Note created:', response.data);
+            if (response.status === 201) {
+                fetchNotes();
+                navigate(`/notes/${response.data.id}`);
+            }
         } catch (error) {
             console.error('Error creating note:', error);
         }

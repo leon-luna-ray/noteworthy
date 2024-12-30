@@ -2,7 +2,7 @@
 
 @layer base {
   body {
-    @apply dark:bg-gray-800 dark:text-gray-200 text-[1.125rem];
+    @apply dark:bg-black/90 dark:text-gray-200 text-[1.125rem];
   }
 
   a { 
