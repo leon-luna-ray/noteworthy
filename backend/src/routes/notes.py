@@ -3,20 +3,20 @@ from sqlalchemy.orm import Session
 from typing import List, Annotated
 from .. import models, schemas
 from ..database import get_db, db_dependency
+from .auth import get_current_user
 
 router = APIRouter()
 
 # /api/v1/notes
 @router.get("/", status_code=status.HTTP_200_OK)
-def read_notes(db: db_dependency):
-    notes = db.query(models.Notes).all()
-    return notes
+def get_notes(db: db_dependency):
+    print("🍒 get_notes")
 
 
 # /api/v1/notes/new
 @router.post("/new", response_model=schemas.Note)
-def create_note(note: schemas.NoteCreate, db: db_dependency):
-    db_note = models.Notes(**note.dict())
+def create_note(note: schemas.NoteCreate, db: db_dependency, current_user: models.Users = Depends(get_current_user)):
+    db_note = models.Notes(**note.dict(), user_id=current_user.id)
     db.add(db_note)
     db.commit()
     db.refresh(db_note)

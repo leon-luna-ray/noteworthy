@@ -15,22 +15,42 @@ export const NoteProvider = ({ children }) => {
 
     // Methods
     // Create
+    // const createNote = async (noteData) => {
+    //     try {
+    //         const response = await axios.post('/notes/new/', noteData);
+    //         if (response.status === 201) {
+    //             fetchNotes();
+    //             navigate(`/dashboard/notes/${response.data.id}`);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error creating note:', error);
+    //     }
+    // };
     const createNote = async (noteData) => {
+        console.log(noteData)
         try {
-            const response = await axios.post('/notes/new/', noteData);
-            if (response.status === 201) {
-                fetchNotes();
-                navigate(`/dashboard/notes/${response.data.id}`);
-            }
+          const response = await axios.post('/notes/new', noteData, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+    
+          if (response.status === 200) {
+            const { access_token } = response.data;
+            setSession(access_token);
+          }
         } catch (error) {
-            console.error('Error creating note:', error);
+          if (error.response && error.response.data && error.response.data.detail) {
+            alert(`Error - ${error.response.data.detail}`);
+          } else {
+            alert('An error occurred. Unable to log in');
+          }
         }
-    };
-
+      };
     // Read
     const fetchNotes = async () => {
         try {
-            const response = await axios.get('/notes');
+            const response = await axios.get('/notes/');
             setNotes(response.data);
         } catch (error) {
             console.error('Error fetching notes:', error);
@@ -72,9 +92,9 @@ export const NoteProvider = ({ children }) => {
     };
 
     // Effects
-    // useEffect(() => {
-    //     fetchNotes();
-    // }, []);
+    useEffect(() => {
+        fetchNotes();
+    }, []);
 
     return (
         <NoteContext.Provider value={{
