@@ -11,12 +11,10 @@ from .routes.notes import router as notes_router
 ENV = config("ENV")
 CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="", cast=Csv())
 
-# docs_url = None if ENV != "dev" else "/docs"
-# redoc_url = None if ENV != "dev" else "/redoc"
-# print(f"🍒 ENV: {ENV}")
-# print(docs_url, redoc_url)
-app = FastAPI()
-# app = FastAPI(docs_url=docs_url, redoc_url=redoc_url)
+docs_url = None if ENV != "dev" else "/docs"
+redoc_url = None if ENV != "dev" else "/redoc"
+
+app = FastAPI(docs_url=docs_url, redoc_url=redoc_url)
 
 app.add_middleware(
     CORSMiddleware,
