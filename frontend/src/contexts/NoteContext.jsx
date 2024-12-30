@@ -58,7 +58,7 @@ export const NoteProvider = ({ children }) => {
             const response = await axios.put(`/notes/edit/${id}/`, noteData);
             if (response.status === 200) {
                 fetchNotes();
-                navigate(`/dashboard/notes/${id}`);
+                navigate(`/notes/${response.data.id}`);
             }
         } catch (error) {
             console.error('Error updating note:', error);

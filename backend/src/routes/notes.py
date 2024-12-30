@@ -12,8 +12,8 @@ router = APIRouter()
 
 # /api/v1/notes
 @router.get("/", status_code=status.HTTP_200_OK)
-def get_notes(db: db_dependency):
-    notes = db.query(models.Notes).all()
+def get_notes(db: db_dependency, current_user: Annotated[dict, Depends(get_current_user)]):
+    notes = db.query(models.Notes).filter(models.Notes.user_id == current_user['user_id']).all()
     return notes
 
 
