@@ -9,6 +9,9 @@ class NoteBase(BaseModel):
 class NoteCreate(NoteBase):
     pass
 
+class NoteUpdate(NoteBase):
+    pass
+
 class Note(NoteBase):
     id: int
     user_id: int

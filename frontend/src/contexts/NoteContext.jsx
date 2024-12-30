@@ -55,7 +55,7 @@ export const NoteProvider = ({ children }) => {
     // Update
     const updateNote = async (id, noteData) => {
         try {
-            const response = await axios.put(`/notes/edit/${id}/`, noteData);
+            const response = await axios.put(`/notes/${id}/`, noteData);
             if (response.status === 200) {
                 fetchNotes();
                 navigate(`/notes/${response.data.id}`);
