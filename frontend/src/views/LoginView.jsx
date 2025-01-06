@@ -30,7 +30,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div id="login" className="flex flex-col-2 justify-center items-center">
+    <div id="login" className="credentials-panel flex flex-col-2 justify-center items-center">
       <div className="flex flex-col gap-y-[2rem] bg-green-400 px-[6rem] py-[4rem] rounded-md text-black">
         <h1 className="text-center text-[3rem]">Login</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-y-[1rem]">

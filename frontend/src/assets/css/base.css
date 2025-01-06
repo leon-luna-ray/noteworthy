@@ -3,7 +3,7 @@
 @layer base {
 
   body {
-    @apply dark:bg-black/90 dark:text-gray-200 text-[1.125rem];
+    @apply text-soft-black dark:bg-soft-black dark:text-soft-white text-[1.125rem] font-noto;
   }
 
   header {
@@ -14,10 +14,6 @@
     @apply mt-[100px];
   }
 
-  a {
-    @apply hover:underline;
-  }
-
   h1,
   .h1,
   h2,
@@ -26,7 +22,7 @@
   .h3,
   h4,
   .h4 {
-    @apply font-[200] font-josefin;
+    @apply font-knewave;
   }
 
   h1,

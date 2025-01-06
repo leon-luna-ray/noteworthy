@@ -1,0 +1,3 @@
+body:not(.reduce-motion) .all-transition {
+  transition: all 0.3s ease;
+}
