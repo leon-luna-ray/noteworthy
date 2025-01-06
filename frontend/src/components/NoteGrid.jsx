@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import IconNewNote from '@/components/icons/IconNewNote';
 
 const NoteGrid = ({ notes }) => {
+    const colors = ['primary', 'secondary', 'tertiary', 'quaternary', 'quinary',]
 
-    const noteColorClass = (index) =>{
-        const colors = ['primary', 'secondary', 'tertiary', 'quaternary', 'quinary',]
+    const noteColorClass = (index) => {
         return colors[index % colors.length]
     }
 
@@ -23,8 +23,7 @@ const NoteGrid = ({ notes }) => {
                         <span>{note.title}</span>
                     </Link>
                 </li>
-            ))
-            }
+            ))}
         </ul>
     )
 }

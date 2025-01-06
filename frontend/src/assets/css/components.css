@@ -12,9 +12,25 @@
         @apply dark:fill-white lg:hidden;
     }
     .note-grid-item {
-        @apply border-blue aspect-square p-[0.5rem];
+        @apply border-blue aspect-square p-[0.5rem] text-soft-black;
     }
     .note-grid-item svg {
         @apply fill-white;
+    }
+
+    .note-grid-item.primary {
+        @apply bg-neon-yellow;
+    }
+    .note-grid-item.secondary {
+        @apply bg-neon-green;
+    }
+    .note-grid-item.tertiary {
+        @apply bg-neon-blue;
+    }
+    .note-grid-item.quaternary {
+        @apply bg-neon-pink;
+    }
+    .note-grid-item.quinary {
+        @apply bg-neon-orange;
     }
 }
