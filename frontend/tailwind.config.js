@@ -10,7 +10,11 @@ module.exports = {
       },
       center: true,
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        josefin: ['Josefin Slab', 'serif'],
+      },
+    },
   },
   plugins: [],
 };

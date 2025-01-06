@@ -1,35 +1,56 @@
 @tailwind base;
 
 @layer base {
+
   body {
     @apply dark:bg-black/90 dark:text-gray-200 text-[1.125rem];
   }
 
-  a { 
+  header {
+    @apply h-[100px];
+  }
+
+  main {
+    @apply mt-[100px];
+  }
+
+  a {
     @apply hover:underline;
   }
 
   h1,
+  .h1,
+  h2,
+  .h2,
+  h3,
+  .h3,
+  h4,
+  .h4 {
+    @apply font-[200] font-josefin;
+  }
+
+  h1,
   .h1 {
-    @apply text-[4rem] font-bold;
+    @apply text-[4rem];
   }
 
   h2,
   .h2 {
-    @apply text-[3rem] font-bold;
+    @apply text-[3rem];
   }
 
   h3,
   .h3 {
-    @apply text-[2rem] font-bold;
+    @apply text-[2rem];
   }
 
   h4,
   .h4 {
-    @apply text-[1rem] font-bold;
+    @apply text-[1rem];
   }
 
-  input, textarea {
+  input,
+  textarea {
     @apply bg-transparent border-b border-black dark:border-gray-400 rounded-md p-2;
   }
 

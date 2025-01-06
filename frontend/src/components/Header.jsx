@@ -7,13 +7,13 @@ const Header = () => {
     const { logOut, isLoggedIn, user } = useAuth();
 
     return (
-        <header className='py-[2rem] flex items-center'>
+        <header className='absolute top-0 w-full py-[2rem] flex items-center'>
             <div className="container flex justify-between items-center">
                 <Link to="/welcome">
                     <h1 className='text-2xl'>Noteworthy</h1>
                 </Link>
                 <div className="flex items-center gap-x-[2rem]">
-                    {isLoggedIn && <Link className="btn" to='/notes/new'>New</Link>}
+                    {/* {isLoggedIn && <Link className="btn" to='/notes/new'>New</Link>} */}
                     {isLoggedIn && <p>{user.email}</p>}
                     <nav className="flex gap-[1rem] items-center">
                         {isLoggedIn && <Link to="/">Dashboard</Link>}
