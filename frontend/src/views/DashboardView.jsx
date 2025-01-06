@@ -14,7 +14,7 @@ const DashboardPage = () => {
   }, []);
 
   return (
-    <div className="container flex-col-2 justify-center items-center w-full h-full border-red">
+    <div className="container flex-col-2 justify-center items-center w-full h-full">
           <Routes>
             <Route path="/" element={
               <NoteGrid notes={notes} />

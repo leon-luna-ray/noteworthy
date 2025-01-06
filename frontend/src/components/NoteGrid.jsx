@@ -12,7 +12,7 @@ const NoteGrid = ({ notes }) => {
     return (
         <ul className='incremental-grid gap-[1rem] h-full w-full'>
             <li className='note-grid-item flex items-center justify-center aspect-[21/9] md:aspect-square'>
-                <Link to='/notes/new' className='flex flex-col items-center justify-center gap-[0.5rem] border-green h-full w-full hover:bg-gray-100/10 all-transition'>
+                <Link to='/notes/new' className='flex flex-col items-center justify-center gap-[0.5rem] h-full w-full hover:bg-gray-100/10 all-transition border-[1px]'>
                     <IconNewNote />
                     <span className="h4 uppercase">New</span>
                 </Link>

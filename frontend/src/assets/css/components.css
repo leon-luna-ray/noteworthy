@@ -12,7 +12,7 @@
         @apply dark:fill-white lg:hidden;
     }
     .note-grid-item {
-        @apply border-blue aspect-square p-[0.5rem] text-soft-black;
+        @apply aspect-square p-[0.5rem] text-soft-black;
     }
     .note-grid-item svg {
         @apply fill-white;
