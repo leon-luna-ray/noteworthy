@@ -44,8 +44,8 @@ const SignupPage = () => {
   };
 
   return (
-    <div id="signup" className="flex justify-center items-center">
-      <div className="flex flex-col gap-y-[2rem] bg-blue-400 px-[6rem] py-[4rem] rounded-md">
+    <div id="signup" className="credentials-panel flex justify-center items-center">
+      <div className="flex flex-col gap-y-[2rem] bg-blue-400 px-[6rem] py-[4rem] rounded-md text-black">
         <h1>Sign Up</h1>
         <form onSubmit={handleSubmit} className="flex-col-1">
           <div className="flex-col-05">

@@ -2,6 +2,35 @@
 
 @layer components {
     .btn {
-        @apply px-4 py-2 w-max text-center bg-transparent border-black dark:border-white border text-black dark:text-white rounded-md label hover:no-underline hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:cursor-pointer;
+        @apply px-4 py-2 w-max text-center bg-transparent border-black dark:border-white border text-black dark:text-white rounded-md label hover:no-underline hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:cursor-pointer all-transition;
+    }
+
+    .credentials-panel h1 {
+        @apply text-black/70;
+    }
+    .icon-menu {
+        @apply dark:fill-white lg:hidden;
+    }
+    .note-grid-item {
+        @apply aspect-square p-[0.5rem] text-soft-black;
+    }
+    .note-grid-item svg {
+        @apply fill-white;
+    }
+
+    .note-grid-item.primary {
+        @apply bg-neon-yellow;
+    }
+    .note-grid-item.secondary {
+        @apply bg-neon-green;
+    }
+    .note-grid-item.tertiary {
+        @apply bg-neon-blue;
+    }
+    .note-grid-item.quaternary {
+        @apply bg-neon-pink;
+    }
+    .note-grid-item.quinary {
+        @apply bg-neon-orange;
     }
 }
