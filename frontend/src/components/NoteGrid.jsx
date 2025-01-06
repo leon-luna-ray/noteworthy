@@ -4,7 +4,6 @@ import IconNewNote from '@/components/icons/IconNewNote';
 
 const NoteGrid = ({ notes }) => {
     const colors = ['primary', 'secondary', 'tertiary', 'quaternary', 'quinary',]
-
     const noteColorClass = (index) => {
         return colors[index % colors.length]
     }
@@ -28,4 +27,4 @@ const NoteGrid = ({ notes }) => {
     )
 }
 
-export default NoteGrid
+export default NoteGrid;
