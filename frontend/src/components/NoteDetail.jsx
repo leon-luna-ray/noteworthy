@@ -20,11 +20,11 @@ const NoteDetail = () => {
     }, [id]);
 
     return (
-        <section className='flex-col-1'>
-            <div className="flex justify-between items-center">
-                <Link to='/' className='flex items-center gap-x-[0.2rem] w-max'>
+        <section className='flex-col-1 text-soft-black'>
+            <div className="flex justify-between items-center pt-[100px] border-blue">
+                <Link to='/' className='flex items-center gap-x-[0.2rem] w-max !text-soft-black'>
                     <IconBack />
-                    <span className='label'>Back</span>
+                    <span className='label'>DO SOMETHING</span>
                 </Link>
                 <div className="flex gap-x-[0.5rem]">
                     <Link to={`/notes/edit/${id}`} className='label btn'>Edit</Link>

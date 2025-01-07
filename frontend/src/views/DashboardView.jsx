@@ -6,6 +6,7 @@ import NoteForm from '@/components/NoteForm';
 import NoteDetail from '@/components/NoteDetail';
 import NoteGrid from '@/components/NoteGrid';
 
+
 const DashboardPage = () => {
   const { notes, fetchNotes } = useContext(NoteContext);
 
