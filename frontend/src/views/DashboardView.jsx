@@ -1,9 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { NoteContext } from '@/contexts/NoteContext';
 
-import NoteForm from '@/components/NoteForm';
-import NoteDetail from '@/components/NoteDetail';
 import NoteGrid from '@/components/NoteGrid';
 
 
