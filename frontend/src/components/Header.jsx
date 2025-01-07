@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import IconMenu from '@/components/icons/IconMenu';
@@ -7,8 +7,10 @@ const Header = () => {
     const { logOut, isLoggedIn, user } = useAuth();
     const location = useLocation();
 
+    const isNoteView = useMemo(() => location.pathname.includes('/notes/'), [location.pathname]);
+
     return (
-        <header className='absolute top-0 w-full py-[2rem] flex items-center'>
+        <header className={`${isNoteView ? 'full-bleed' : ''} 'note absolute top-0 w-full py-[2rem] flex items-center z-[2]`}>
             <div className="container flex justify-between items-center">
                 {location.pathname === '/welcome' ? (<div aria-hidden="true"></div>) : (
                     <Link to="/welcome" className='logo'>

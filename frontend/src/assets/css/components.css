@@ -8,12 +8,15 @@
     .credentials-panel h1 {
         @apply text-black/70;
     }
+
     .icon-menu {
         @apply dark:fill-white lg:hidden;
     }
+
     .note-grid-item {
         @apply aspect-square p-[0.5rem] text-soft-black;
     }
+
     .note-grid-item svg {
         @apply fill-white;
     }
@@ -21,16 +24,24 @@
     .note-grid-item.primary {
         @apply bg-neon-yellow;
     }
+
     .note-grid-item.secondary {
         @apply bg-neon-green;
     }
+
     .note-grid-item.tertiary {
         @apply bg-neon-blue;
     }
+
     .note-grid-item.quaternary {
         @apply bg-neon-pink;
     }
+
     .note-grid-item.quinary {
         @apply bg-neon-orange;
+    }
+
+    header.full-bleed * {
+        @apply text-soft-black;
     }
 }

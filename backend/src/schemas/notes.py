@@ -1,9 +1,11 @@
 from pydantic import BaseModel
+from typing import Optional
 from datetime import datetime
 
 class NoteBase(BaseModel):
-    title: str
-    body: str
+    title: Optional[str] = None
+    body: Optional[str] = None
+    style: Optional[str] = None  
 
 
 class NoteCreate(NoteBase):
