@@ -40,6 +40,7 @@
     .note-grid-item.quinary {
         @apply bg-neon-orange;
     }
+    
 
     header.full-bleed * {
         @apply text-soft-black;
