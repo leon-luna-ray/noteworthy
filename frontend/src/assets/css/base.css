@@ -47,7 +47,7 @@
 
   input,
   textarea {
-    @apply bg-transparent border-b border-black dark:border-gray-400 rounded-md p-2;
+    @apply bg-transparent border-b border-black dark:border-gray-400 rounded-md p-2 outline-none;
   }
 
   .label {
